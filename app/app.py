@@ -3,9 +3,8 @@ import pandas as pd
 import joblib
 
 # --- Load saved model and scaler ---
-model  = joblib.load('../models/model.pkl')
-scaler = joblib.load('../models/scaler.pkl')
-
+model  = joblib.load('models/model.pkl')
+scaler = joblib.load('models/scaler.pkl')
 st.title("Customer Churn Predictor 🔮")
 st.write("Enter customer details to predict if they will churn")
 
