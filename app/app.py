@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# --- Load saved model and scaler ---
 model  = joblib.load('models/model.pkl')
 scaler = joblib.load('models/scaler.pkl')
 
@@ -42,16 +41,14 @@ if st.button("Predict Churn", type="primary"):
 
     total_charges = tenure * monthly_charges
 
+    # Exact column order matching scaler.feature_names_in_
     input_dict = {
-        'SeniorCitizen':    senior_citizen,
-        'tenure':           tenure,
-        'MonthlyCharges':   monthly_charges,
-        'TotalCharges':     total_charges,
         'gender':           1,
+        'SeniorCitizen':    senior_citizen,
         'Partner':          1 if partner == "Yes" else 0,
         'Dependents':       1 if dependents == "Yes" else 0,
+        'tenure':           tenure,
         'PhoneService':     1 if phone_service == "Yes" else 0,
-        'PaperlessBilling': 1 if paperless == "Yes" else 0,
         'MultipleLines':    1 if multiple_lines == "Yes" else 0,
         'OnlineSecurity':   1 if online_security == "Yes" else 0,
         'OnlineBackup':     1 if online_backup == "Yes" else 0,
@@ -59,6 +56,9 @@ if st.button("Predict Churn", type="primary"):
         'TechSupport':      1 if tech_support == "Yes" else 0,
         'StreamingTV':      0,
         'StreamingMovies':  0,
+        'PaperlessBilling': 1 if paperless == "Yes" else 0,
+        'MonthlyCharges':   monthly_charges,
+        'TotalCharges':     total_charges,
         'InternetService_Fiber optic': 1 if internet == "Fiber optic" else 0,
         'InternetService_No':          1 if internet == "No" else 0,
         'Contract_One year':           1 if contract == "One year" else 0,
